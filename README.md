@@ -16,7 +16,7 @@ then simply run the project
 
 ## How to take this test
 
-The is no right or wrong way to do this, we are more interested in the code you write, the development process you use rather than marking your work! Set yourself a 4 hour maximum time limit and see how get on.
+The is no right or wrong way to do this, we are more interested in the code you write, the development process you use rather than marking your work! Set yourself a time limit and see how get on.
 
 ## Data
 
@@ -36,7 +36,12 @@ Your goal is to build a React and Redux-based UI to explore this data. The inter
 
 ## Technology choices
 
-The use of React and Redux is required. Apart from that, you are completely free to choose libraries, frameworks and tools to best assist you in this challenge. The choice of the method of serving the data to the UI is up to you, but it should use a RESTful API approach.
+The use of React and Redux is required. Apart from that, you are completely free to choose libraries, frameworks and tools to best assist you in this challenge. The choice of the method of serving the data to the UI is up to you,
+feel free to import it from a static json file.
+
+## Bonus Points
+
+Serve the geojson data from a RESTful API built in the technology of your choice rather than just importing from a static json file.
 
 ## Once complete
 
