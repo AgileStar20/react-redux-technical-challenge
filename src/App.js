@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AppStyled from "../src/AppStyled";
 import MyMapComponent from "../src/Maps";
-import img from "../src/img/download.png";
+import Sidebar from "./components/Sidebar/index";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -11,26 +11,7 @@ class App extends Component {
     return (
       <AppStyled className="App">
         <div className="ContainerWrapper">
-          <div className="sideBar">
-            <ul>
-              <div className="avatar">
-                <img src={img} alt="" />
-                <h4>Google Maps</h4>
-              </div>
-              <li>
-                <a href="">home</a>
-              </li>
-              <li>
-                <a href="">features</a>
-              </li>
-              <li>
-                <a href="">information</a>
-              </li>
-              <li>
-                <a href="">contact</a>
-              </li>
-            </ul>
-          </div>
+          <Sidebar />
           <div className="Wrapper">
             <div className="headTitle">
               <h2>
