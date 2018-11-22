@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AppStyled = styled.div`
+export default styled.div`
   .ContainerWrapper {
     display: flex;
     justify-content: center;
@@ -50,4 +50,3 @@ const AppStyled = styled.div`
     color: #00bcd4 !important;
   }
 `;
-export default AppStyled;

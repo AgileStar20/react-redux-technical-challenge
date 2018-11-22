@@ -1,28 +1,26 @@
 import React from "react";
 import {
-  CollapsibleComponent,
   CollapsibleHead,
   CollapsibleContent
 } from "react-collapsible-component";
-import CollapsStyled from "./collapseStyle";
+import { get } from "lodash";
+import Wrapper from "./styles";
 
 const Collapse = props => {
+  let materialLinks = get(props, "materials", []);
   return (
-    <CollapsStyled>
+    <Wrapper>
       <CollapsibleHead className="collapsibleHeading">
         {props.title}
       </CollapsibleHead>
       <CollapsibleContent className="collapsibleContent">
-        <ul>
-          <li>boot ramp 1</li>
-          <li>boot ramp 2</li>
-          <li>boot ramp 3</li>
-          <li>boot ramp 4</li>
-          <li>boot ramp 5</li>
-          <li>boot ramp 6</li>
+        <ul className={props.scroll === true ? "isScrolll" : null}>
+          {materialLinks.map((items, index) => {
+            return <li key={index}>{items}</li>;
+          })}
         </ul>
       </CollapsibleContent>
-    </CollapsStyled>
+    </Wrapper>
   );
 };
 

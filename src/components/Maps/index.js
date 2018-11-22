@@ -7,47 +7,25 @@ import {
   Marker,
   Polygon
 } from "react-google-maps";
-import Test from "../src/GEOJSON.json";
+import PropTypes from "prop-types";
 
 const API_KEY = "AIzaSyDf-yIqxErTkbWzKhLox7nAANnrfDIY190";
 const Map_Url = "https://maps.googleapis.com/maps/api/js?";
-const Cordinatess = Test.features.map(ll => {
-  return ll.geometry.coordinates.map(kk => {
-    return { lat: kk[1], lng: kk[0] };
-  });
-});
 
-console.log(Cordinatess);
-
-// const Cordinates = Test.features[0].geometry.coordinates;
-// const reversedCoords = Cordinates.map(item => {
-//   return { lat: item[1], lng: item[0] };
-// });
-// console.log(reversedCoords);
-
-const MyMapComponent = compose(
-  withProps({
-    googleMapURL: `${Map_Url}key=${API_KEY}`,
-    loadingElement: <div style={{ height: `100%`, width: `100%` }} />,
-    containerElement: <div style={{ height: `400px`, width: `100%` }} />,
-    mapElement: <div style={{ height: `100%` }} />
-  }),
-  withScriptjs,
-  withGoogleMap
-)(props => (
+const Map = props => (
   <GoogleMap
-    defaultZoom={9}
+    defaultZoom={10}
     defaultCenter={{ lng: 153.29237339772322, lat: -27.897575560605485 }}
   >
-    {props.isMarkerShown && (
+    {/* {props.isMarkerShown && (
       <Marker
         position={{ lng: 153.29237339772322, lat: -27.897575560605485 }}
       />
-    )}
+    )} */}
 
-    {Cordinatess.map(item => {
+    {props.ramps.map((item, index) => {
       return (
-        <div>
+        <div key={index}>
           <Marker
             position={{ lng: 153.29237339772322, lat: -27.897575560605485 }}
           />
@@ -65,6 +43,21 @@ const MyMapComponent = compose(
       );
     })}
   </GoogleMap>
-));
+);
 
-export default MyMapComponent;
+Map.propTypes = {
+  ramps: PropTypes.array.isRequired
+};
+
+const MapContainer = compose(
+  withProps({
+    googleMapURL: `${Map_Url}key=${API_KEY}`,
+    loadingElement: <div style={{ height: `100%`, width: `100%` }} />,
+    containerElement: <div style={{ height: `400px`, width: `100%` }} />,
+    mapElement: <div style={{ height: `100%` }} />
+  }),
+  withScriptjs,
+  withGoogleMap
+)(Map);
+
+export default MapContainer;

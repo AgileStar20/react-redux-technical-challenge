@@ -1,7 +1,6 @@
 import { createStore } from "redux";
-
-const reducer = (state = {}, action) => {
-  return state;
-};
-
-export default createStore(reducer);
+import reducer from "../Container/App/reducer";
+export default createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
