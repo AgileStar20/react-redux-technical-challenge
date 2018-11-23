@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Wrapper from "./styles";
 import { connect } from "react-redux";
 import Map from "./../../components/Maps/index";
-import { initAction, filterAction } from "./actions";
+import { initAction, filterAction, areaFilterAction } from "./actions";
 import ramps from "../../boat_ramps.json";
-import Sidebar from "./../Sidebar/index";
+import Sidebar from "../../components/Sidebar/index";
 
 class App extends Component {
   componentDidMount() {
@@ -12,11 +12,22 @@ class App extends Component {
   }
 
   get filteredRamps() {
-    const { ramps } = this.props;
+    const { ramps, filterText, areaFilterText } = this.props;
     if (ramps && ramps.features !== undefined) {
-      return ramps.features.map(ll => {
+      let features = filterText
+        ? ramps.features.filter(item => item.properties.material === filterText)
+        : ramps.features;
+
+      if (areaFilterText) {
+        const [start, end] = areaFilterText.split("-");
+        features = features.filter(
+          item => item.properties.area_ >= start && item.properties.area_ <= end
+        );
+      }
+
+      return features.map(ll => {
         return ll.geometry.coordinates.map(kk => {
-          return { lat: kk[1], lng: kk[0] };
+          return { lng: kk[0], lat: kk[1] };
         });
       });
     }
@@ -28,7 +39,13 @@ class App extends Component {
     return (
       <Wrapper className="App">
         <div className="ContainerWrapper">
-          <Sidebar filter={this.props.filter} />
+          <Sidebar
+            filter={this.props.filter}
+            materials={this.props.materials}
+            areas={this.props.areas}
+            areaFilter={this.props.areaFilter}
+            filterArea={this.props.filterArea}
+          />
           <div className="Wrapper">
             <div className="headTitle">
               <h2>
@@ -46,11 +63,16 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => ({
   init: payload => dispatch(initAction(payload)),
-  filter: payload => dispatch(filterAction(payload))
+  filter: payload => dispatch(filterAction(payload)),
+  filterArea: payload => dispatch(areaFilterAction(payload))
 });
 
 const mapStateToProps = state => ({
-  ramps: state.ramps
+  ramps: state.ramps,
+  materials: state.materials,
+  filterText: state.filter,
+  areas: state.areas,
+  areaFilterText: state.areaFilter
 });
 
 const MapApp = connect(

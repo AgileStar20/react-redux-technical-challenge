@@ -27,7 +27,7 @@ const Map = props => (
       return (
         <div key={index}>
           <Marker
-            position={{ lng: 153.29237339772322, lat: -27.897575560605485 }}
+            position={{ lat: -27.897600934719307, lng: 153.29240999654635 }}
           />
           <Polygon
             path={item}

@@ -1,10 +1,11 @@
-import { INIT, FILTER } from "./constants";
+import { INIT, FILTER, AREAFILTER } from "./constants";
 
 const initialState = {
   ramps: [],
   filter: null,
   materials: [],
-  areas: []
+  areas: [],
+  areaFilter: null
 };
 
 export default (state = initialState, action) => {
@@ -12,17 +13,23 @@ export default (state = initialState, action) => {
     case INIT: {
       const materials = [];
       const { payload: ramps } = action;
-      const areas = [];
+      const areas = { "0-50": [], "51-200": [], "201-526": [] };
+
       ramps.features.forEach(item => {
         const { material } = item.properties;
         if (!materials.includes(material)) {
           materials.push(material);
         }
       });
+
       ramps.features.forEach(item => {
         const { area_ } = item.properties;
-        if (!areas.includes(area_)) {
-          areas.push(area_);
+        if (area_ <= 50) {
+          areas["0-50"].push(area_);
+        } else if (area_ <= 200) {
+          areas["51-200"].push(area_);
+        } else {
+          areas["201-526"].push(area_);
         }
       });
 
@@ -31,6 +38,10 @@ export default (state = initialState, action) => {
 
     case FILTER: {
       const newState = { ...state, filter: action.payload };
+      return newState;
+    }
+    case AREAFILTER: {
+      const newState = { ...state, areaFilter: action.payload };
       return newState;
     }
 

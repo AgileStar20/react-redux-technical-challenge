@@ -3,21 +3,23 @@ import {
   CollapsibleHead,
   CollapsibleContent
 } from "react-collapsible-component";
-import { get } from "lodash";
 import Wrapper from "./styles";
 
-const Collapse = props => {
-  let materialLinks = get(props, "materials", []);
+const Collapse = ({ scroll, materials, filter, title }) => {
   return (
     <Wrapper>
-      <CollapsibleHead className="collapsibleHeading">
-        {props.title}
-      </CollapsibleHead>
+      <CollapsibleHead className="collapsibleHeading">{title}</CollapsibleHead>
       <CollapsibleContent className="collapsibleContent">
-        <ul className={props.scroll === true ? "isScrolll" : null}>
-          {materialLinks.map((items, index) => {
-            return <li key={index}>{items}</li>;
-          })}
+        <ul className={scroll === true ? "isScrolll" : null}>
+          <li onClick={() => filter(null)}>All</li>
+          {materials &&
+            materials.map((item, index) => {
+              return (
+                <li onClick={() => filter(item)} key={index}>
+                  {item}
+                </li>
+              );
+            })}
         </ul>
       </CollapsibleContent>
     </Wrapper>

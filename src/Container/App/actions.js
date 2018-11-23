@@ -1,4 +1,4 @@
-import { INIT, FILTER } from "./constants";
+import { INIT, FILTER, AREAFILTER } from "./constants";
 
 export const initAction = payload => ({
   type: INIT,
@@ -7,5 +7,10 @@ export const initAction = payload => ({
 
 export const filterAction = payload => ({
   type: FILTER,
+  payload
+});
+
+export const areaFilterAction = payload => ({
+  type: AREAFILTER,
   payload
 });
